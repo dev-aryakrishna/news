@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-
-import '../constants/env_constants.dart';
+import 'package:newsapp/core/constants/api_constants.dart';
+import 'package:newsapp/core/constants/env_constants.dart';
 import 'api_interceptor.dart';
 
 class DioClient {
@@ -9,7 +9,7 @@ class DioClient {
   DioClient() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://newsapi.org/v2',
+        baseUrl: '${ApiConstants.baseUrl}/v2',
         connectTimeout: const Duration(seconds: 30),
         receiveTimeout: const Duration(seconds: 30),
         headers: {

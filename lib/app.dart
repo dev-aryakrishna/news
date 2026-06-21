@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:newsapp/core/connectivity/connectivity_cubit.dart';
+import 'package:newsapp/core/localization/localization_service.dart';
+import 'package:newsapp/core/themes/app_theme.dart';
+import 'package:newsapp/core/widgets/connectivity_wrapper.dart';
+import 'package:newsapp/dependency_injection/injection.dart';
+import 'package:newsapp/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:newsapp/l10n/app_localizations.dart';
-
-import 'core/themes/app_theme.dart';
-import 'core/localization/localization_service.dart';
-import 'routes/app_router.dart';
-import 'dependency_injection/injection.dart';
-import 'features/auth/presentation/bloc/auth_bloc.dart';
-import 'core/connectivity/connectivity_cubit.dart';
+import 'package:newsapp/routes/app_router.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -36,6 +36,11 @@ class App extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
+            builder: (context, child) {
+              return ConnectivityWrapper(
+                child: child ?? const SizedBox(),
+              );
+            },
           );
         },
       ),

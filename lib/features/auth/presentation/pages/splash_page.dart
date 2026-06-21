@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../bloc/auth_bloc.dart';
-import '../bloc/auth_event.dart';
-import '../bloc/auth_state.dart';
-import '../../../../core/localization/localization_service.dart';
-import '../../../../core/themes/app_colors.dart';
-import '../../../../core/themes/app_text_styles.dart';
-import '../../../../core/themes/app_spacing.dart';
-import '../../../../dependency_injection/injection.dart';
-import '../../../../routes/route_names.dart';
+import 'package:newsapp/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:newsapp/features/auth/presentation/bloc/auth_event.dart';
+import 'package:newsapp/features/auth/presentation/bloc/auth_state.dart';
+import 'package:newsapp/core/localization/localization_service.dart';
+import 'package:newsapp/core/themes/app_colors.dart';
+import 'package:newsapp/core/themes/app_text_styles.dart';
+import 'package:newsapp/core/themes/app_spacing.dart';
+import 'package:newsapp/dependency_injection/injection.dart';
+import 'package:newsapp/routes/route_names.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

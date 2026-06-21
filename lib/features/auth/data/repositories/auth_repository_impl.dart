@@ -1,7 +1,7 @@
-import '../../domain/entities/user_entity.dart';
-import '../../domain/repositories/auth_repository.dart';
-import '../datasource/auth_remote_datasource.dart';
-import '../models/user_model.dart';
+import 'package:newsapp/features/auth/domain/entities/user_entity.dart';
+import 'package:newsapp/features/auth/domain/repositories/auth_repository.dart';
+import 'package:newsapp/features/auth/data/datasource/auth_remote_datasource.dart';
+import 'package:newsapp/features/auth/data/models/user_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
@@ -13,7 +13,6 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    print('Repository Login Called');
     final response = await remoteDataSource.login(
       email: email,
       password: password,
@@ -25,7 +24,11 @@ class AuthRepositoryImpl implements AuthRepository {
       throw Exception('User not found');
     }
 
-    return UserModel.fromSupabaseUser(user.id, user.email ?? '');
+    return UserModel.fromSupabaseUser(
+      user.id,
+      user.email ?? '',
+      user.userMetadata,
+    );
   }
 
   @override
@@ -35,7 +38,6 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    print('Repository Signup Called');
     await remoteDataSource.signUp(
       fullName: fullName,
       phone: phone,
@@ -46,11 +48,21 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> logout() async {
-    print('Repository Logout Called');
-
     await remoteDataSource.logout();
   }
 
   @override
   bool get isLoggedIn => remoteDataSource.getCurrentSession() != null;
+
+  @override
+  UserEntity? get currentUser {
+    final user = remoteDataSource.getCurrentUser();
+    if (user == null) return null;
+
+    return UserModel.fromSupabaseUser(
+      user.id,
+      user.email ?? '',
+      user.userMetadata,
+    );
+  }
 }

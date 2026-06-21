@@ -6,10 +6,6 @@ class ApiInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) {
-    print(
-      'REQUEST[${options.method}] => ${options.path}',
-    );
-
     super.onRequest(options, handler);
   }
 
@@ -18,10 +14,6 @@ class ApiInterceptor extends Interceptor {
     Response response,
     ResponseInterceptorHandler handler,
   ) {
-    print(
-      'RESPONSE[${response.statusCode}] => ${response.requestOptions.path}',
-    );
-
     super.onResponse(response, handler);
   }
 
@@ -30,10 +22,6 @@ class ApiInterceptor extends Interceptor {
     DioException err,
     ErrorInterceptorHandler handler,
   ) {
-    print(
-      'ERROR[${err.response?.statusCode}] => ${err.requestOptions.path}',
-    );
-
     super.onError(err, handler);
   }
 }

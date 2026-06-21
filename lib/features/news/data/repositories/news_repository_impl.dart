@@ -1,9 +1,9 @@
-import '../../domain/entities/news_entity.dart';
-import '../../domain/repositories/news_repository.dart';
-import '../datasource/news_remote_datasource.dart';
+import 'package:newsapp/features/news/domain/entities/news_entity.dart';
+import 'package:newsapp/features/news/domain/repositories/news_repository.dart';
+import 'package:newsapp/features/news/data/datasource/news_remote_datasource.dart';
 import 'dart:convert';
-import '../../../../core/services/local_storage_service.dart';
-import '../models/news_model.dart';
+import 'package:newsapp/core/services/local_storage_service.dart';
+import 'package:newsapp/features/news/data/models/news_model.dart';
 
 class NewsRepositoryImpl implements NewsRepository {
   final NewsRemoteDataSource remoteDataSource;
@@ -17,7 +17,6 @@ class NewsRepositoryImpl implements NewsRepository {
       final articles = await remoteDataSource.getTopHeadlines(page: page);
 
       if (page == 1) {
-        print('Saving cache: ${articles.length}');
         await localStorageService.saveNews(
           articles.map((e) => jsonEncode(e.toJson())).toList(),
         );
@@ -25,24 +24,18 @@ class NewsRepositoryImpl implements NewsRepository {
 
       return articles.map((e) => e.toEntity()).toList();
     } catch (e) {
-      print('Loading cache...');
-
       try {
         final cachedNews = await localStorageService.getNews();
-        print('Cached count: ${cachedNews.length}');
 
         if (cachedNews.isNotEmpty) {
           final mapped = cachedNews
               .map((e) => NewsModel.fromJson(jsonDecode(e)).toEntity())
               .toList();
-          print('MAPPED COUNT: ${mapped.length}'); 
-          return mapped; // 👈 does it reach here?
+          return mapped;
         }
 
-        print('CACHE EMPTY - rethrowing'); 
         rethrow;
       } catch (cacheError) {
-        print('CACHE ERROR: $cacheError'); 
         rethrow;
       }
     }

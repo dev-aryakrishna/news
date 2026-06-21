@@ -99,6 +99,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get invalidPhone => 'Enter a valid phone number';
 
   @override
+  String get loginSubtitle => 'Welcome back! Sign in to continue';
+
+  @override
+  String get signupSubtitle => 'Create your account to get started';
+
+  @override
+  String get newsDetail => 'News Detail';
+
+  @override
+  String get noTitle => 'No Title';
+
+  @override
+  String get noDate => 'No Date';
+
+  @override
+  String get readFullArticle => 'Read Full Article';
+
+  @override
+  String helloUser(Object name) {
+    return 'Hello, $name! ';
+  }
+
+  @override
   String get language => 'Language';
 
   @override

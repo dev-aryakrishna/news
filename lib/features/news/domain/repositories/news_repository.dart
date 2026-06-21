@@ -1,4 +1,4 @@
-import '../entities/news_entity.dart';
+import 'package:newsapp/features/news/domain/entities/news_entity.dart';
 
 abstract class NewsRepository {
   Future<List<NewsEntity>> getTopHeadlines({

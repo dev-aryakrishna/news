@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/repositories/news_repository.dart';
+import 'package:newsapp/features/news/domain/repositories/news_repository.dart';
 import 'news_event.dart';
 import 'news_state.dart';
 
@@ -26,11 +26,9 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     try {
       currentPage = 1;
       final articles = await newsRepository.getTopHeadlines(page: currentPage);
-      print(articles.first.title);
       emit(NewsLoaded(articles: articles, hasReachedMax: articles.isEmpty));
     } catch (e) {
-      // getTopHeadlines only rethrows when cache is also empty
-      // so attempt one more direct cache fetch for the UI banner
+      
       try {
         final cachedNews = await newsRepository.getCachedNews();
         emit(NewsError(
@@ -94,9 +92,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       isLoadingMore = true;
 
       final articles = await newsRepository.getTopHeadlines(page: currentPage);
-      print('CURRENT: ${currentState.articles.length}');
-      print('NEW: ${articles.length}');
-      print('TOTAL: ${currentState.articles.length + articles.length}');
+     
 
       emit(
         NewsLoaded(

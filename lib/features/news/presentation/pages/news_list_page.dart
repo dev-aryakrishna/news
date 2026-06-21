@@ -4,25 +4,22 @@ import 'package:go_router/go_router.dart';
 import 'dart:async';
 import 'package:newsapp/l10n/app_localizations.dart';
 
-import '../widgets/news_card.dart';
-import '../bloc/news_bloc.dart';
-import '../bloc/news_event.dart';
-import '../bloc/news_state.dart';
-import '../../../auth/presentation/bloc/auth_bloc.dart';
-import '../../../auth/presentation/bloc/auth_event.dart';
-import '../../../auth/presentation/bloc/auth_state.dart';
-import '../../../../core/connectivity/connectivity_cubit.dart';
-import '../../../../core/connectivity/connectivity_state.dart';
-import '../../../../core/themes/app_colors.dart';
-import '../../../../core/themes/app_text_styles.dart';
-import '../../../../core/themes/app_spacing.dart';
-import '../../../../core/themes/app_radius.dart';
-import '../../../../core/widgets/news_shimmer_card.dart';
-import '../../../../core/widgets/empty_state_widget.dart';
-import '../../../../core/widgets/error_state_widget.dart';
-import '../../../../core/widgets/offline_banner.dart';
-import '../../../../features/settings/widgets/language_switcher.dart';
-import '../../../../routes/route_names.dart';
+import 'package:newsapp/features/news/presentation/widgets/news_card.dart';
+import 'package:newsapp/features/news/presentation/bloc/news_bloc.dart';
+import 'package:newsapp/features/news/presentation/bloc/news_event.dart';
+import 'package:newsapp/features/news/presentation/bloc/news_state.dart';
+import 'package:newsapp/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:newsapp/features/auth/presentation/bloc/auth_event.dart';
+import 'package:newsapp/features/auth/presentation/bloc/auth_state.dart';
+import 'package:newsapp/core/themes/app_colors.dart';
+import 'package:newsapp/core/themes/app_text_styles.dart';
+import 'package:newsapp/core/themes/app_spacing.dart';
+import 'package:newsapp/core/themes/app_radius.dart';
+import 'package:newsapp/core/widgets/news_shimmer_card.dart';
+import 'package:newsapp/core/widgets/empty_state_widget.dart';
+import 'package:newsapp/core/widgets/error_state_widget.dart';
+import 'package:newsapp/features/settings/widgets/language_switcher.dart';
+import 'package:newsapp/routes/route_names.dart';
 
 class NewsListPage extends StatefulWidget {
   const NewsListPage({super.key});
@@ -141,7 +138,7 @@ class _NewsListPageState extends State<NewsListPage> {
         canPop: !_isSearching, 
         onPopInvokedWithResult: (didPop, result) {
           if (!didPop && _isSearching) {
-            _closeSearch(); // 👈 search close ചെയ്യുക
+            _closeSearch(); 
           }
         },
         child: Scaffold(
@@ -165,14 +162,7 @@ class _NewsListPageState extends State<NewsListPage> {
                 ),
 
                 // Offline banner
-                BlocBuilder<ConnectivityCubit, ConnectivityState>(
-                  builder: (context, connectivityState) {
-                    if (connectivityState is ConnectivityOffline) {
-                      return OfflineBanner(message: l10n.noInternet);
-                    }
-                    return const SizedBox.shrink();
-                  },
-                ),
+                
 
                 // Body
                 Expanded(
@@ -260,46 +250,67 @@ class _NewsAppBar extends StatelessWidget {
         children: [
           // Title row
           Row(
-            children: [
-              Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(10),
+          children: [
+          Container(
+          width: 36,
+          height: 36,
+          decoration: BoxDecoration(
+          color: AppColors.primary,
+         borderRadius: BorderRadius.circular(10),
+        ),
+         child: const Icon(
+          Icons.newspaper_rounded,
+          color: AppColors.textWhite,
+         size: 20,
+       ),
+     ),
+    const SizedBox(width: AppSpacing.md),
+
+    
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('NewsApp', style: AppTextStyles.headlineMedium),
+        BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (state is AuthAuthenticated) {
+              final name = state.fullName ?? state.email ?? '';
+              return Text(
+                  l10n.helloUser(name),              
+                  style: AppTextStyles.bodyMedium.copyWith(
+                  color: AppColors.textHint,
+                  fontSize: 11,
                 ),
-                child: const Icon(
-                  Icons.newspaper_rounded,
-                  color: AppColors.textWhite,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Text('NewsApp', style: AppTextStyles.headlineMedium),
-              const Spacer(),
-              const LanguageSwitcher(),
-              IconButton(
-                icon: Icon(
-                  isSearching
-                      ? Icons.close_rounded
-                      : Icons.search_rounded,
-                  color: AppColors.textPrimary,
-                ),
-                onPressed: onSearchToggle,
-              ),
-              Builder(
-                builder: (ctx) => IconButton(
-                  icon: const Icon(
-                    Icons.logout_rounded,
-                    color: AppColors.textPrimary,
-                  ),
-                  onPressed: () {
-                    ctx.read<AuthBloc>().add(LogoutRequested());
-                  },
-                ),
-              ),
-            ],
-          ),
+              );
+            }
+            return const SizedBox.shrink();
+          },
+        ),
+      ],
+    ),
+
+    const Spacer(),
+    const LanguageSwitcher(),
+    IconButton(
+      icon: Icon(
+        isSearching ? Icons.close_rounded : Icons.search_rounded,
+        color: AppColors.textPrimary,
+      ),
+      onPressed: onSearchToggle,
+    ),
+    Builder(
+      builder: (ctx) => IconButton(
+        icon: const Icon(
+          Icons.logout_rounded,
+          color: AppColors.textPrimary,
+        ),
+        onPressed: () {
+          ctx.read<AuthBloc>().add(LogoutRequested());
+        },
+      ),
+    ),
+  ],
+),
 
           // Search bar — animated
           AnimatedCrossFade(

@@ -278,6 +278,48 @@ abstract class AppLocalizations {
   /// **'Enter a valid phone number'**
   String get invalidPhone;
 
+  /// No description provided for @loginSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back! Sign in to continue'**
+  String get loginSubtitle;
+
+  /// No description provided for @signupSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your account to get started'**
+  String get signupSubtitle;
+
+  /// No description provided for @newsDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'News Detail'**
+  String get newsDetail;
+
+  /// No description provided for @noTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No Title'**
+  String get noTitle;
+
+  /// No description provided for @noDate.
+  ///
+  /// In en, this message translates to:
+  /// **'No Date'**
+  String get noDate;
+
+  /// No description provided for @readFullArticle.
+  ///
+  /// In en, this message translates to:
+  /// **'Read Full Article'**
+  String get readFullArticle;
+
+  /// No description provided for @helloUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, {name}! '**
+  String helloUser(Object name);
+
   /// No description provided for @language.
   ///
   /// In en, this message translates to:

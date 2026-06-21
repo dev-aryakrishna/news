@@ -1,6 +1,6 @@
-import '../../../../core/errors/exceptions.dart';
-import '../../../../core/network/dio_client.dart';
-import '../models/news_model.dart';
+import 'package:newsapp/core/errors/exceptions.dart';
+import 'package:newsapp/core/network/dio_client.dart';
+import 'package:newsapp/features/news/data/models/news_model.dart';
 
 abstract class NewsRemoteDataSource {
   Future<List<NewsModel>> getTopHeadlines({required int page});
@@ -19,7 +19,6 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   @override
   Future<List<NewsModel>> getTopHeadlines({required int page}) async {
     try {
-      print('PAGE: $page');
       final response = await dioClient.dio.get(
         '/top-headlines',
         queryParameters: {'country': 'us', 'page': page, 'pageSize': 20},

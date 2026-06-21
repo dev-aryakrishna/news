@@ -32,6 +32,15 @@
   "passwordsDoNotMatch": "Passwords do not match",
   "fieldRequired": "This field is required",
   "invalidPhone": "Enter a valid phone number",
+  "loginSubtitle": "Welcome back! Sign in to continue",
+  "signupSubtitle": "Create your account to get started",
+
+  "newsDetail": "News Detail",
+  "noTitle": "No Title",
+  "noDate": "No Date",
+  "readFullArticle": "Read Full Article",
+  "helloUser": "Hello, {name}! ",
+
 
   "language": "Language",
   "english": "English",

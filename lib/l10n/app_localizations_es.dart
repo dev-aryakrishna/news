@@ -100,6 +100,30 @@ class AppLocalizationsEs extends AppLocalizations {
   String get invalidPhone => 'Ingresa un número de teléfono válido';
 
   @override
+  String get loginSubtitle =>
+      '¡Bienvenido de nuevo! Inicia sesión para continuar';
+
+  @override
+  String get signupSubtitle => 'Crea tu cuenta para comenzar';
+
+  @override
+  String get newsDetail => 'Detalle de Noticia';
+
+  @override
+  String get noTitle => 'Sin Título';
+
+  @override
+  String get noDate => 'Sin Fecha';
+
+  @override
+  String get readFullArticle => 'Leer Artículo Completo';
+
+  @override
+  String helloUser(Object name) {
+    return '¡Hola, $name! ';
+  }
+
+  @override
   String get language => 'Idioma';
 
   @override

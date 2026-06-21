@@ -32,6 +32,14 @@
   "passwordsDoNotMatch": "Las contraseñas no coinciden",
   "fieldRequired": "Este campo es obligatorio",
   "invalidPhone": "Ingresa un número de teléfono válido",
+  "loginSubtitle": "¡Bienvenido de nuevo! Inicia sesión para continuar",
+  "signupSubtitle": "Crea tu cuenta para comenzar",
+
+  "newsDetail": "Detalle de Noticia",
+  "noTitle": "Sin Título",
+  "noDate": "Sin Fecha",
+  "readFullArticle": "Leer Artículo Completo",
+  "helloUser": "¡Hola, {name}! ",
 
   "language": "Idioma",
   "english": "Inglés",
