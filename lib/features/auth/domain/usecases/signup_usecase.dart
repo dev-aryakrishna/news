@@ -1,5 +1,5 @@
 import 'package:newsapp/features/auth/domain/repositories/auth_repository.dart';
-//give details of user to repository using call function to create new account
+
 class SignUpUseCase {
   final AuthRepository repository;
   SignUpUseCase(this.repository);

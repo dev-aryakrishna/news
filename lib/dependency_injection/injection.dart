@@ -50,12 +50,14 @@ Future<void> configureDependencies() async {
     () => AuthRepositoryImpl(sl<AuthRemoteDataSource>()),
   );
 
+  //Auth_usecase
   sl.registerLazySingleton(() => LoginUseCase(sl<AuthRepository>()));
   sl.registerLazySingleton(() => SignUpUseCase(sl<AuthRepository>()));
   sl.registerLazySingleton(() => LogoutUseCase(sl<AuthRepository>()));
   sl.registerLazySingleton(() => IsLoggedInUseCase(sl<AuthRepository>()));
   sl.registerLazySingleton(() => GetCurrentUserUseCase(sl<AuthRepository>()));
 
+  //Auth BLoC
   sl.registerFactory<LoginBloc>(
     () => LoginBloc(loginUseCase: sl<LoginUseCase>()),
   );
@@ -86,11 +88,13 @@ Future<void> configureDependencies() async {
     ),
   );
 
-  // News Bloc
+  //News_usecases
     sl.registerLazySingleton(() => GetTopHeadlineUsecase(sl<NewsRepository>()));
     sl.registerLazySingleton(() => SearchNewsUsecase(sl<NewsRepository>()));
      sl.registerLazySingleton(() => GetCachedNewsUsecase(sl<NewsRepository>()));
    
+
+  // News BLoC
 
   sl.registerFactory<NewsBloc>(
     () => NewsBloc(

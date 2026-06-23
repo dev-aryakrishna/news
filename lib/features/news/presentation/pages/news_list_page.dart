@@ -120,7 +120,7 @@ class _NewsListPageState extends State<NewsListPage> {
     return ListView.builder(
       padding: const EdgeInsets.only(top: AppSpacing.sm),
       itemCount: 5,
-      itemBuilder: (_, __) => const NewsShimmerCard(),
+      itemBuilder: (_, _) => const NewsShimmerCard(),
     );
   }
 
