@@ -1,20 +1,30 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsapp/features/news/domain/repositories/news_repository.dart';
+import 'package:newsapp/features/news/domain/usecases/get_cached_news_usecase.dart';
+import 'package:newsapp/features/news/domain/usecases/get_top_headline_usecase.dart';
+import 'package:newsapp/features/news/domain/usecases/search_news_usecase.dart';
 import 'news_event.dart';
 import 'news_state.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
-  final NewsRepository newsRepository;
+  final GetTopHeadlineUsecase  getTopHeadlineUsecase;
+  final SearchNewsUsecase searchNewsUsecase;
+  final GetCachedNewsUsecase getCachedNewsUsecase;
+
 
   int currentPage = 1;
   bool hasReachedMax = false;
   bool isLoadingMore = false;
 
-  NewsBloc({required this.newsRepository}) : super(NewsInitial()) {
+  NewsBloc({
+    required this.getTopHeadlineUsecase,
+    required this.searchNewsUsecase,
+    required this.getCachedNewsUsecase,
+  }) : super(NewsInitial()) {
     on<FetchTopHeadlines>(_onFetchTopHeadlines);
     on<RefreshNews>(_onRefreshNews);
     on<SearchNews>(_onSearchNews);
     on<LoadMoreNews>(_onLoadMoreNews);
+
   }
 
   Future<void> _onFetchTopHeadlines(
@@ -25,12 +35,12 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
     try {
       currentPage = 1;
-      final articles = await newsRepository.getTopHeadlines(page: currentPage);
+      final articles = await getTopHeadlineUsecase(page: currentPage);
       emit(NewsLoaded(articles: articles, hasReachedMax: articles.isEmpty));
     } catch (e) {
       
       try {
-        final cachedNews = await newsRepository.getCachedNews();
+        final cachedNews = await getCachedNewsUsecase();
         emit(NewsError(
           e.toString(),
           cachedArticles: cachedNews.isNotEmpty ? cachedNews : null,
@@ -58,7 +68,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
     try {
       currentPage = 1;
-      final articles = await newsRepository.searchNews(
+      final articles = await searchNewsUsecase(
         query: event.query,
         page: currentPage,
       );
@@ -66,7 +76,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     } catch (e) {
       // On search failure, show cached headlines with offline banner
       try {
-        final cachedNews = await newsRepository.getCachedNews();
+        final cachedNews = await getCachedNewsUsecase();
         emit(NewsError(
           e.toString(),
           cachedArticles: cachedNews.isNotEmpty ? cachedNews : null,
@@ -91,7 +101,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       currentPage++;
       isLoadingMore = true;
 
-      final articles = await newsRepository.getTopHeadlines(page: currentPage);
+      final articles = await getTopHeadlineUsecase(page: currentPage);
      
 
       emit(

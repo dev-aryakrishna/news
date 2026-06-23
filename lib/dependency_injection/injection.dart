@@ -1,4 +1,7 @@
 import 'package:get_it/get_it.dart';
+import 'package:newsapp/features/news/domain/usecases/get_cached_news_usecase.dart';
+import 'package:newsapp/features/news/domain/usecases/get_top_headline_usecase.dart';
+import 'package:newsapp/features/news/domain/usecases/search_news_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -84,9 +87,19 @@ Future<void> configureDependencies() async {
   );
 
   // News Bloc
+    sl.registerLazySingleton(() => GetTopHeadlineUsecase(sl<NewsRepository>()));
+    sl.registerLazySingleton(() => SearchNewsUsecase(sl<NewsRepository>()));
+     sl.registerLazySingleton(() => GetCachedNewsUsecase(sl<NewsRepository>()));
+   
+
   sl.registerFactory<NewsBloc>(
-    () => NewsBloc(newsRepository: sl<NewsRepository>()),
+    () => NewsBloc(
+      getTopHeadlineUsecase: sl<GetTopHeadlineUsecase>(),
+      searchNewsUsecase: sl<SearchNewsUsecase>(),
+      getCachedNewsUsecase: sl<GetCachedNewsUsecase>(),
+      ),
   );
+
 
   // Connectivity
   sl.registerLazySingleton<Connectivity>(() => Connectivity());
