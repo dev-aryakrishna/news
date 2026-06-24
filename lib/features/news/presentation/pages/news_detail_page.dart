@@ -131,7 +131,7 @@ class NewsDetailPage extends StatelessWidget {
                     style: AppTextStyles.newsContent,
                   ),
 
-                  const SizedBox(height: AppSpacing.xxl),
+                  const SizedBox(height: AppSpacing.xxxl),
 
                   //  Read Full Article button
                   SizedBox(

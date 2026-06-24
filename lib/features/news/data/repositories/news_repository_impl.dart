@@ -25,7 +25,7 @@ class NewsRepositoryImpl implements NewsRepository {
       return articles.map((e) => e.toEntity()).toList();
     } catch (e) {
       try {
-        final cachedNews = await localStorageService.getNews();
+        final cachedNews =  localStorageService.getNews();
 
         if (cachedNews.isNotEmpty) {
           final mapped = cachedNews

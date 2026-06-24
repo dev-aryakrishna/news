@@ -130,6 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                                 LoginRequested(
                                   email: _emailController.text.trim(),
                                   password: _passwordController.text.trim(),
+                                  l10n: l10n
                                 ),
                               );
                             }

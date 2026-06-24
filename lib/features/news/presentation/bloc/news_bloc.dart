@@ -4,6 +4,9 @@ import 'package:newsapp/features/news/domain/usecases/get_top_headline_usecase.d
 import 'package:newsapp/features/news/domain/usecases/search_news_usecase.dart';
 import 'news_event.dart';
 import 'news_state.dart';
+import 'package:newsapp/l10n/app_localizations.dart';
+
+
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
   final GetTopHeadlineUsecase  getTopHeadlineUsecase;
@@ -90,6 +93,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   Future<void> _onLoadMoreNews(
     LoadMoreNews event,
     Emitter<NewsState> emit,
+  
   ) async {
     if (state is! NewsLoaded || isLoadingMore) return;
 
@@ -119,7 +123,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
         return;
       }
 
-      emit(const NewsError('Failed to load more news'));
+      emit( NewsError(event.l10n.failedToLoad));
     }
   }
 }

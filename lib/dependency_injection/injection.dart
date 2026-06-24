@@ -91,7 +91,7 @@ Future<void> configureDependencies() async {
   //News_usecases
     sl.registerLazySingleton(() => GetTopHeadlineUsecase(sl<NewsRepository>()));
     sl.registerLazySingleton(() => SearchNewsUsecase(sl<NewsRepository>()));
-     sl.registerLazySingleton(() => GetCachedNewsUsecase(sl<NewsRepository>()));
+    sl.registerLazySingleton(() => GetCachedNewsUsecase(sl<NewsRepository>()));
    
 
   // News BLoC

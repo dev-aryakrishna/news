@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:newsapp/l10n/app_localizations.dart';
+
 
 abstract class SignupEvent extends Equatable {
   const SignupEvent();
@@ -11,12 +13,16 @@ class SignUpRequested extends SignupEvent {
   final String phone;
   final String email;
   final String password;
+    final AppLocalizations l10n;
+
 
   const SignUpRequested({
     required this.fullName,
     required this.phone,
     required this.email,
     required this.password,
+    required this.l10n,
+
   });
 
   @override

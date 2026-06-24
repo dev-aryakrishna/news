@@ -169,8 +169,8 @@ class _SignupPageState extends State<SignupPage> {
                                       fullName: _nameController.text.trim(),
                                       phone: _phoneController.text.trim(),
                                       email: _emailController.text.trim(),
-                                      password:
-                                          _passwordController.text.trim(),
+                                      password:_passwordController.text.trim(),
+                                      l10n: l10n,
                                     ),
                                   );
                             }

@@ -40,7 +40,9 @@ class _NewsListPageState extends State<NewsListPage> {
 
     _scrollController.addListener(() {
       if (_scrollController.position.extentAfter < 300) {
-        context.read<NewsBloc>().add(LoadMoreNews());
+        context.read<NewsBloc>().add(LoadMoreNews(
+          l10n : AppLocalizations.of(context),
+        ));
       }
     });
   }
